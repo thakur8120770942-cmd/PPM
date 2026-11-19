@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaCare | Prescription Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-icon">✚</span><div><h1>PharmaCare</h1><small>Prescription Management System</small></div></div>
+    <span class="top-note">Pharmacy workspace</span>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <p class="nav-heading">MENU</p>
+      <button class="nav-link active" data-target="entry">＋ <span>Prescription Entry</span></button>
+      <button class="nav-link" data-target="catalogue">▦ <span>Medicine Catalogue</span></button>
+      <button class="nav-link" data-target="verification">✓ <span>Pharmacist Verification</span></button>
+      <button class="nav-link" data-target="dispensing">▣ <span>Dispensing Status</span></button>
+      <button class="nav-link" data-target="summary">▤ <span>Order Summary</span></button>
+      <div class="sidebar-note"><strong>Demo application</strong><p>Records are saved in this browser using localStorage.</p></div>
+    </aside>
+
+    <main class="main">
+      <section class="page active" id="entry">
+        <div class="page-heading"><div><p class="eyebrow">PRESCRIPTION WORKFLOW</p><h2>Prescription Entry</h2><p class="muted">Enter patient and prescription details below.</p></div></div>
+        <div class="panel">
+          <form id="prescriptionForm">
+            <div class="form-grid">
+              <label>Patient name<input id="patientName" required maxlength="60" placeholder="Enter patient name"></label>
+              <label>Patient age<input id="patientAge" type="number" min="1" max="120" required placeholder="Age"></label>
+              <label>Medicine
+                <select id="medicineSelect" required><option value="">Select a medicine</option></select>
+              </label>
+              <label>Dosage<input id="dosage" required placeholder="e.g. 500 mg"></label>
+              <label>Frequency
+                <select id="frequency" required>
+                  <option value="">Select frequency</option>
+                  <option>Once daily</option><option>Twice daily</option><option>Three times daily</option><option>As directed by prescription</option>
+                </select>
+              </label>
+              <label>Duration<input id="duration" required placeholder="e.g. 5 days"></label>
+              <label class="full">Prescription notes <textarea id="notes" rows="3" placeholder="Optional notes from the prescription"></textarea></label>
+            </div>
+            <div class="form-footer"><p class="hint">Enter dosage and instructions exactly as written on the prescription.</p><button class="btn primary" type="submit">Save Prescription</button></div>
+          </form>
+        </div>
+        <div id="entryMessage" class="message" aria-live="polite"></div>
+      </section>
+
+      <section class="page" id="catalogue">
+        <div class="page-heading"><div><p class="eyebrow">MEDICINE INFORMATION</p><h2>Medicine Catalogue</h2><p class="muted">Browse the sample medicines and their availability.</p></div></div>
+        <div class="panel catalogue-form-panel">
+          <h3 id="medicineFormTitle">Add Medicine</h3>
+          <form id="medicineForm">
+            <div class="form-grid medicine-form-grid">
+              <label>Medicine name<input id="newMedicineName" required maxlength="60" placeholder="e.g. Paracetamol"></label>
+              <label>Category<input id="newMedicineCategory" required maxlength="40" placeholder="e.g. Pain relief"></label>
+              <label>Strength<input id="newMedicineStrength" required maxlength="30" placeholder="e.g. 500 mg"></label>
+              <label>Available stock<input id="newMedicineStock" type="number" min="0" required placeholder="e.g. 40"></label>
+            </div>
+            <div class="form-footer">
+              <p class="hint">Add a new medicine or select Edit in the catalogue to update its details.</p>
+              <div class="form-actions"><button class="btn secondary" type="button" id="cancelMedicineEdit" hidden>Cancel edit</button><button class="btn primary" type="submit" id="medicineSubmitButton">Add Medicine</button></div>
+            </div>
+          </form>
+        </div>
+        <div class="toolbar"><input id="medicineSearch" placeholder="Search medicines..." aria-label="Search medicines"></div>
+        <div class="panel table-wrap"><table><thead><tr><th>Medicine</th><th>Category</th><th>Strength</th><th>Available stock</th><th>Availability</th><th>Actions</th></tr></thead><tbody id="catalogueBody"></tbody></table></div>
+        <p class="hint">Sample catalogue data for demonstration only. It is not medical advice.</p>
+      </section>
+
+      <section class="page" id="verification">
+        <div class="page-heading"><div><p class="eyebrow">REVIEW</p><h2>Pharmacist Verification</h2><p class="muted">Review prescriptions and record a verification decision.</p></div></div>
+        <div class="panel table-wrap"><table><thead><tr><th>Patient</th><th>Medicine</th><th>Dosage instructions</th><th>Availability</th><th>Decision</th></tr></thead><tbody id="verificationBody"></tbody></table></div>
+      </section>
+
+      <section class="page" id="dispensing">
+        <div class="page-heading"><div><p class="eyebrow">ORDER PROCESSING</p><h2>Dispensing Status</h2><p class="muted">Update the status of verified prescriptions.</p></div></div>
+        <div class="panel table-wrap"><table><thead><tr><th>Order</th><th>Patient</th><th>Medicine</th><th>Verification</th><th>Dispensing status</th></tr></thead><tbody id="dispensingBody"></tbody></table></div>
+      </section>
+
+      <section class="page" id="summary">
+        <div class="page-heading"><div><p class="eyebrow">PRESCRIPTION RECORD</p><h2>Order Summary</h2><p class="muted">View and print a prescription order summary.</p></div><button class="btn secondary" onclick="window.print()">Print Summary</button></div>
+        <div id="summaryContent" class="summary-list"></div>
+      </section>
+
+      <footer>PharmaCare · Educational demonstration project</footer>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
